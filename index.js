@@ -24,7 +24,7 @@ document.body.appendChild(renderer.domElement); // Add the renderer to the HTML 
 const geometry = new THREE.BoxGeometry(1, 1, 1); // Create a cube geometry
 
 // Create a material - the surface appearance of the object
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // Create a green material
+const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 }); // Create a green material
 
 // Create a mesh - the combination of geometry and material
 const cube = new THREE.Mesh(geometry, material);
