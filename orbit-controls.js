@@ -9,26 +9,38 @@ const camera = new THREE.PerspectiveCamera(
     0.1,
     1000
 );
-camera.position.z = 5;
+camera.position.z = 2;
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Cube with light-reactive material
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+// Create a mesh with an IcosahedronGeometry
+// IcosahedronGeometry is a 20-sided polyhedron, often used in 3D graphics
+const geometry = new THREE.IcosahedronGeometry(1.0, 2);
+const material = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    flatShading: true,
+});
+const mesh = new THREE.Mesh(geometry, material);
+scene.add(mesh); // Add the mesh to the scene
+
+// Create a wiremesh material
+// WireMaterial is used to create a wireframe effect on the mesh
+const wireMat = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    wireframe: true,
+});
+
+// Create a wireframe mesh using the mesh geometry
+const wireMesh = new THREE.Mesh(geometry, wireMat);
+// Scale the wireframe mesh slightly larger than the solid mesh
+wireMesh.scale.setScalar(1.001);
+mesh.add(wireMesh); // Add the wireframe mesh as a child of the solid mesh
 
 // Add light
-const light = new THREE.DirectionalLight(0xffff00, 100);
-light.position.set(2, 2, 2);
-scene.add(light);
-
-// Add light helper to visualize the light's position and direction
-const lightHelper = new THREE.DirectionalLightHelper(light);
-scene.add(lightHelper);
+const hemiLight = new THREE.HemisphereLight(0x0099ff, 0xaa5500, 1);
+scene.add(hemiLight); // Add a hemisphere light to the scene
 
 // Orbit Controls to enable camera movement
 // OrbitControls allows the camera to orbit around a target
@@ -42,7 +54,7 @@ function animate() {
 
     // cube.rotation.y += 0.01;
     // cube.rotation.x += 0.005;
-    cube.rotation.z += 0.01;
+    // cube.rotation.z += 0.01;
 
     // controls.update(); // Allows damping in every frame
     renderer.render(scene, camera);
