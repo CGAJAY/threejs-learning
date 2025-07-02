@@ -52,9 +52,9 @@ controls.enableDamping = true; // makes camera movement smoother and natural
 function animate() {
     requestAnimationFrame(animate);
 
-    // cube.rotation.y += 0.01;
-    // cube.rotation.x += 0.005;
-    // cube.rotation.z += 0.01;
+    // mesh.rotation.y += 0.01;
+    // mesh.rotation.x += 0.005;
+    mesh.rotation.z += 0.005;
 
     // controls.update(); // Allows damping in every frame
     renderer.render(scene, camera);
